@@ -13,4 +13,6 @@ out
 *.njsproj
 *.sln
 *.sw?
+.vscode
+.vs
 
