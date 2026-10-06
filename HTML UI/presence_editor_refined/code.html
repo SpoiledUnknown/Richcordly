@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="web_dashboard" name="shell-type"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=JetBrains+Mono:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#d0bcff",
+            "primary-container": "#a078ff",
+            "on-primary": "#3c0091",
+            "on-primary-container": "#340080",
+            secondary: "#7bd0ff",
+            "secondary-container": "#00a6e0",
+            surface: "#090d16",
+            "surface-container": "#121829",
+            "surface-container-low": "#0d1322",
+            "surface-container-lowest": "#060a12",
+            "on-surface": "#dee2f3",
+            "on-surface-variant": "#949db7",
+            outline: "#4c556b"
+          },
+          fontFamily: {
+            sans: ["Geist", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-[#070b14] text-[#d6dcfa] font-sans h-screen w-screen overflow-hidden select-none">
+<!-- Ambient WebGL & Night Sky Background Layer -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+
+<div class="absolute inset-0 bg-[#070b14]/75 backdrop-blur-[4px]"></div>
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-950/20 via-[#070b14]/50 to-[#070b14]"></div>
+</div>
+<!-- Entire Window Frame with Floating Island Architecture (Generous negative margins) -->
+<div class="relative z-10 flex flex-col h-screen p-5 lg:p-7 box-border gap-4">
+<!-- Compact Clean Sleek Titlebar -->
+<header class="flex items-center justify-between px-5 py-2.5 rounded-2xl bg-[#0d121f]/75 backdrop-blur-xl border border-white/5 shadow-lg shrink-0">
+<div class="flex items-center gap-3">
+<div class="w-6 h-6 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-400 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.4)]">
+<span class="material-symbols-outlined text-[15px] text-white">sports_esports</span>
+</div>
+<span class="font-mono text-xs font-semibold tracking-wider text-slate-300">RICHCORD</span>
+<span class="text-slate-600 text-xs">•</span>
+<div class="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span>Discord Connected</span>
+</div>
+</div>
+<div class="flex items-center gap-4 text-xs">
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] text-slate-400 font-mono text-[11px] border border-white/5">
+<span class="text-slate-500">PROFILE</span>
+<span class="text-slate-200">Default (Dev)</span>
+</div>
+<!-- Window controls -->
+<div class="flex items-center gap-1.5 text-slate-500 pl-2 border-l border-white/10">
+<button class="w-6 h-6 rounded hover:bg-white/10 hover:text-slate-200 flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[14px]">remove</span>
+</button>
+<button class="w-6 h-6 rounded hover:bg-white/10 hover:text-slate-200 flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[13px]">check_box_outline_blank</span>
+</button>
+<button class="w-6 h-6 rounded hover:bg-rose-500/20 hover:text-rose-400 flex items-center justify-center transition-colors" type="button">
+<span class="material-symbols-outlined text-[15px]">close</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Floating Layout (Left Nav + Open Center Workspace + Right Preview) -->
+<div class="flex-1 flex gap-5 min-h-0 items-stretch">
+<!-- 1. DISTINCT FLOATING LEFT NAVIGATION -->
+<aside class="w-16 rounded-3xl bg-[#0d121f]/80 backdrop-blur-2xl border border-white/5 shadow-2xl p-3 flex flex-col justify-between items-center shrink-0">
+<!-- Top Navigation -->
+<div class="flex flex-col items-center gap-3 w-full">
+<div class="w-10 h-10 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-primary mb-1">
+<span class="material-symbols-outlined text-[20px]">terminal</span>
+</div>
+<nav class="flex flex-col items-center gap-2.5 w-full">
+<!-- Active item -->
+<button class="w-10 h-10 rounded-2xl flex items-center justify-center bg-violet-600/25 border border-violet-500/40 text-violet-300 shadow-[0_0_16px_rgba(167,139,250,0.25)] transition-all" title="Presence Editor" type="button">
+<span class="material-symbols-outlined text-[20px]">sports_esports</span>
+</button>
+<button class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all" title="Profile Manager" type="button">
+<span class="material-symbols-outlined text-[20px]">layers</span>
+</button>
+<button class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all" title="Settings" type="button">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</button>
+</nav>
+</div>
+<!-- Bottom Navigation -->
+<div class="flex flex-col items-center gap-2.5 w-full">
+<button class="relative w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all" title="System Updates" type="button">
+<span class="material-symbols-outlined text-[20px]">cloud_download</span>
+<span class="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]"></span>
+</button>
+<button class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all" title="GitHub" type="button">
+<span class="material-symbols-outlined text-[20px]">code</span>
+</button>
+<button class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all" title="About" type="button">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</button>
+</div>
+</aside>
+<!-- 2. OPEN CENTER WORKSPACE (Scrollable with elegant grouping, NO giant card wrapping) -->
+<main class="flex-1 min-w-0 flex flex-col justify-between overflow-y-auto px-2 lg:px-4">
+<div class="max-w-4xl w-full mx-auto pb-4">
+<!-- Page Header -->
+<div class="flex items-center justify-between pt-2 pb-6 border-b border-white/[0.06]">
+<div>
+<h1 class="text-xl lg:text-2xl font-semibold tracking-tight text-white">Presence Editor</h1>
+<p class="text-sm text-slate-400 mt-0.5">Configure active Discord Rich Presence payload</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="h-9 px-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/5 text-xs font-mono transition-all" type="button">
+                Clear
+              </button>
+<button class="h-9 px-5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs tracking-wide shadow-[0_0_20px_rgba(147,51,234,0.35)] transition-all flex items-center gap-2" id="push-btn" type="button">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>Update Presence</span>
+</button>
+</div>
+</div>
+<!-- Form Sections -->
+<div class="mt-6 flex flex-col gap-5">
+<!-- Section 1: Basic -->
+<section class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg">
+<h2 class="text-xs font-mono tracking-wider uppercase text-violet-300 font-semibold mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                Basic Activity
+              </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Details</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all" id="input-details" placeholder="What you are doing..." type="text" value="Building Richcord Desktop Client"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">State</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all" id="input-state" placeholder="Current party/level status..." type="text" value="refactoring ipc sockets"/>
+</div>
+</div>
+</section>
+<!-- Section 2: Keys & Visual (Pure Text Inputs - Zero Thumbnails/Uploads) -->
+<section class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg">
+<h2 class="text-xs font-mono tracking-wider uppercase text-sky-300 font-semibold mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+                Keys &amp; Visual
+              </h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Large Image Key</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 font-mono text-xs transition-all" placeholder="e.g. richcord_crystallite" type="text" value="richcord_crystallite"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Large Image Text</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" placeholder="Hover tooltip text..." type="text" value="Richcord Dev Studio"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Small Image Key</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 font-mono text-xs transition-all" placeholder="e.g. vscode_badge" type="text" value="vscode_badge"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Small Image Text</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 transition-all" placeholder="Hover tooltip text..." type="text" value="Editing presence.ts"/>
+</div>
+</div>
+</section>
+<!-- Section 3: Timestamps -->
+<section class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-xs font-mono tracking-wider uppercase text-purple-300 font-semibold flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                  Timestamps
+                </h2>
+<span class="text-[11px] font-mono text-slate-500">Epoch Sync Active</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Start Time (Elapsed)</label>
+<span class="text-[11px] font-mono text-sky-400">Current Session</span>
+</div>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 font-mono text-xs transition-all" type="text" value="1710928120 (42m ago)"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<div class="flex items-center justify-between">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">End Time (Optional)</label>
+<span class="text-[11px] font-mono text-slate-500">Disabled</span>
+</div>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-500 placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 font-mono text-xs transition-all" placeholder="Unix timestamp or empty" type="text" value=""/>
+</div>
+</div>
+</section>
+<!-- Section 4: Party -->
+<section class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg">
+<h2 class="text-xs font-mono tracking-wider uppercase text-indigo-300 font-semibold mb-3 flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+                Party Settings
+              </h2>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Party ID</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 font-mono text-xs focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all" type="text" value="richcord-party-841"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Current Size</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 font-mono text-xs text-center focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all" max="100" min="1" type="number" value="1"/>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-[11px] font-mono uppercase tracking-wider text-slate-400">Max Size</label>
+<input class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 font-mono text-xs text-center focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-all" max="100" min="1" type="number" value="5"/>
+</div>
+</div>
+</section>
+<!-- Section 5: Buttons -->
+<section class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg">
+<div class="flex items-center justify-between mb-3">
+<h2 class="text-xs font-mono tracking-wider uppercase text-violet-300 font-semibold flex items-center gap-2">
+<span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
+                  Action Buttons
+                </h2>
+<span class="text-[11px] font-mono text-slate-500">2 / 2 Slots</span>
+</div>
+<div class="flex flex-col gap-3">
+<!-- Button slot 1 -->
+<div class="flex items-center gap-3 bg-[#090d18] border border-white/10 rounded-xl p-2.5">
+<span class="font-mono text-xs text-slate-500 px-2 font-medium">#1</span>
+<input class="flex-1 bg-white/[0.03] border border-white/5 rounded-lg px-3 py-1.5 text-xs text-slate-100 focus:outline-none focus:border-violet-500" placeholder="Label" type="text" value="View GitHub"/>
+<input class="flex-[2] bg-white/[0.03] border border-white/5 rounded-lg px-3 py-1.5 text-xs text-sky-400 font-mono focus:outline-none focus:border-violet-500" placeholder="URL" type="text" value="https://github.com/richcord/client"/>
+<button class="p-1.5 text-slate-500 hover:text-rose-400 transition-colors" title="Delete button" type="button">
+<span class="material-symbols-outlined text-[17px]">delete</span>
+</button>
+</div>
+<!-- Button slot 2 -->
+<div class="flex items-center gap-3 bg-[#090d18] border border-white/10 rounded-xl p-2.5">
+<span class="font-mono text-xs text-slate-500 px-2 font-medium">#2</span>
+<input class="flex-1 bg-white/[0.03] border border-white/5 rounded-lg px-3 py-1.5 text-xs text-slate-100 focus:outline-none focus:border-violet-500" placeholder="Label" type="text" value="Visit Site"/>
+<input class="flex-[2] bg-white/[0.03] border border-white/5 rounded-lg px-3 py-1.5 text-xs text-sky-400 font-mono focus:outline-none focus:border-violet-500" placeholder="URL" type="text" value="https://richcord.dev"/>
+<button class="p-1.5 text-slate-500 hover:text-rose-400 transition-colors" title="Delete button" type="button">
+<span class="material-symbols-outlined text-[17px]">delete</span>
+</button>
+</div>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- 3. DISTINCT FLOATING RIGHT PREVIEW PANEL (Pure & Uncluttered Live Preview) -->
+<aside class="w-[350px] rounded-3xl bg-[#0d121f]/80 backdrop-blur-2xl border border-white/5 shadow-2xl p-6 flex flex-col justify-between shrink-0">
+<div class="flex flex-col gap-5">
+<!-- Preview Header -->
+<div class="flex items-center justify-between">
+<h2 class="text-sm font-semibold tracking-wide text-white">Preview</h2>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+<span>Live Sync</span>
+</div>
+</div>
+<!-- Pure Discord-styled presence card -->
+<div class="rounded-2xl overflow-hidden bg-[#111726] border border-white/[0.08] shadow-2xl">
+<!-- Discord Profile Banner Decorator -->
+<div class="h-20 bg-gradient-to-r from-violet-900/50 via-indigo-900/40 to-slate-900 relative">
+<div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-[#111726] to-transparent"></div>
+</div>
+<!-- Profile Info & Body -->
+<div class="px-4 pb-4 relative flex flex-col gap-3.5">
+<!-- Avatar cluster -->
+<div class="flex justify-between items-end -mt-9 mb-0.5">
+<div class="relative">
+<div class="w-16 h-16 rounded-full p-1 bg-[#111726]">
+<div class="w-full h-full rounded-full overflow-hidden bg-slate-800 flex items-center justify-center">
+<img alt="alexander.dev avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrKICk6TAyxex-PGlvg50dEN2iTU3xBWMypOtG-O6RUUaJi8hTlj_hBwBP-PirV9uGkFr46dsixx5Oh-zJi-c9ya0plBf6-BDPqV9DFvZT4rbkS97Rvf-MYS_rrDEMwsoVtDlXFOz7jayQTp8FN4oFyrtANxYfm_-6uvxqqGl8L6o0vb78VHhYFy3vQFU5p59IqeNdVepgvl-OUATtVSTr81clJpkyO2p-LDRAsSE4wZ-Lxp6SdODjNg"/>
+</div>
+</div>
+<!-- Status dot -->
+<span class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-[#23a55a] border-[3px] border-[#111726]"></span>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/5 text-[10px] font-mono text-slate-400">
+                  alexander.dev
+                </span>
+</div>
+<!-- User name -->
+<div>
+<div class="text-white font-semibold text-sm tracking-tight">alexander.dev</div>
+<div class="text-xs text-slate-400 mt-0.5">coding in the dark 🌙</div>
+</div>
+<!-- Activity Card Container -->
+<div class="rounded-xl bg-[#171f33] p-3.5 flex flex-col gap-3 border border-white/[0.04]">
+<div class="text-[10px] uppercase font-mono font-bold tracking-wider text-slate-400 flex items-center justify-between">
+<span>Playing a Game</span>
+<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+</div>
+<div class="flex gap-3 items-center">
+<!-- Large + Overlaid Small asset key placeholders -->
+<div class="relative w-14 h-14 shrink-0 rounded-xl overflow-visible">
+<div class="w-14 h-14 rounded-xl overflow-hidden bg-slate-900 border border-white/10 flex items-center justify-center">
+<img alt="Richcord Crystallite" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDA4cwnSCKkSnS9cw32O9R6ZApEvUXRV_dVvCteyJuXrUXegzXfYnC-4N1w3SCUWcsYaZZ-qGZc2_U__rGnWUMolEZbz5V-xDoKRT0SslOjt3JYFfN5srWNewm-dQBRXhbVIq1V1Ku784OCU_8zjlw9f1U5BXOn1lM80z9Oeub6slHaH9ZvgnDJge58SYbG0CCXexNlF-xk9Ax9OnrmNcwQOdS1J7VecAG2aburSbQjRNcNWTZ6hYlxMQ"/>
+</div>
+<!-- Small badge overlaid -->
+<div class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-[#171f33] p-0.5 flex items-center justify-center">
+<div class="w-full h-full rounded-full overflow-hidden bg-slate-950 flex items-center justify-center border border-white/10">
+<img alt="VSCode Badge" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7RsWw57Epqi5D4OpyQ6C7LLcEJjt2oAIiiALNcoz6MGj9gzmEyrBG60FCCQUt2ZnJRngzQjru5YY5_iCI98D496kwA5ilN5B0Um8OK0k9207aM32qJaHO9-vyKplkrHIB2oavZgCfhpTD0o9y9HdYPp3DjGX-_y3anBx0nukVs2o_s6A0jofKx1xHHUjO-ARTdBFBa6EKSAT9neipJxv_4Em2knq-29vbtOCaDp_fUJwUdIli5zDdmg"/>
+</div>
+</div>
+</div>
+<!-- Text lines -->
+<div class="flex flex-col min-w-0 justify-center">
+<span class="text-xs font-semibold text-white truncate">Richcord</span>
+<span class="text-xs text-slate-300 truncate mt-0.5" id="preview-details">Building Richcord Desktop Client</span>
+<span class="text-[11px] text-slate-400 truncate" id="preview-state">refactoring ipc sockets</span>
+<div class="text-[10px] font-mono text-sky-400 flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[11px]">schedule</span>
+<span id="preview-elapsed">00:42 elapsed</span>
+</div>
+</div>
+</div>
+<!-- Two Discord-style action buttons -->
+<div class="flex flex-col gap-2 pt-1">
+<a class="w-full py-1.5 px-3 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-xs font-medium text-white flex items-center justify-center gap-1.5 transition-colors" href="#">
+<span>View GitHub</span>
+<span class="material-symbols-outlined text-[13px] text-slate-400">open_in_new</span>
+</a>
+<a class="w-full py-1.5 px-3 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-xs font-medium text-white flex items-center justify-center gap-1.5 transition-colors" href="#">
+<span>Visit Site</span>
+<span class="material-symbols-outlined text-[13px] text-slate-400">open_in_new</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Subtle minimal bottom bar in preview panel -->
+<div class="pt-4 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-slate-500">
+<span>IPC Pipe: #0</span>
+<span class="text-slate-400">Status: Active</span>
+</div>
+</aside>
+</div>
+</div>
+<script>
+    // Live synchronization between form inputs and Discord preview card
+    const inputDetails = document.getElementById('input-details');
+    const inputState = document.getElementById('input-state');
+    const previewDetails = document.getElementById('preview-details');
+    const previewState = document.getElementById('preview-state');
+    const pushBtn = document.getElementById('push-btn');
+
+    if (inputDetails && previewDetails) {
+      inputDetails.addEventListener('input', (e) => {
+        previewDetails.textContent = e.target.value || 'Idle';
+      });
+    }
+
+    if (inputState && previewState) {
+      inputState.addEventListener('input', (e) => {
+        previewState.textContent = e.target.value || 'In lobby';
+      });
+    }
+
+    if (pushBtn) {
+      pushBtn.addEventListener('click', () => {
+        const original = pushBtn.innerHTML;
+        pushBtn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">refresh</span><span>Synced</span>';
+        setTimeout(() => {
+          pushBtn.innerHTML = original;
+        }, 1400);
+      });
+    }
+
+    // Elapsed timer ticker
+    let minutes = 42;
+    let seconds = 0;
+    const elapsedEl = document.getElementById('preview-elapsed');
+    if (elapsedEl) {
+      setInterval(() => {
+        seconds++;
+        if (seconds >= 60) {
+          minutes++;
+          seconds = 0;
+        }
+        elapsedEl.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')} elapsed`;
+      }, 1000);
+    }
+  </script>
+</body></html>
