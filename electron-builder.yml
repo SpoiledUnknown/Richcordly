@@ -1,7 +1,7 @@
 appId: com.electron.app
 productName: richcordly-ui
 directories:
-  buildResources: build
+  buildResources: public
 files:
   - '!**/.vscode/*'
   - '!src/*'
@@ -10,7 +10,7 @@ files:
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
-  - resources/**
+  - public/**
 win:
   executableName: richcordly-ui
 nsis:
@@ -19,7 +19,7 @@ nsis:
   uninstallDisplayName: ${productName}
   createDesktopShortcut: always
 mac:
-  entitlementsInherit: build/entitlements.mac.plist
+  entitlementsInherit: public/entitlements.mac.plist
   extendInfo:
     - NSCameraUsageDescription: Application requests access to the device's camera.
     - NSMicrophoneUsageDescription: Application requests access to the device's microphone.
