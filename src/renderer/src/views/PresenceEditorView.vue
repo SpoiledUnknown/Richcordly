@@ -14,15 +14,15 @@
         <div class="flex items-center gap-3">
           <button
             type="button"
-            @click="store.clearPresence"
             class="h-9 px-4 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 border border-white/5 text-xs font-mono transition-all cursor-pointer"
+            @click="store.clearPresence"
           >
             Clear
           </button>
           <button
             type="button"
-            @click="handleUpdatePresence"
             class="h-9 px-5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs tracking-wide shadow-[0_0_20px_rgba(147,51,234,0.35)] transition-all flex items-center gap-2 cursor-pointer"
+            @click="handleUpdatePresence"
           >
             <span
               class="material-symbols-outlined text-[16px]"
@@ -49,7 +49,9 @@
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Details
               </label>
               <input
@@ -60,7 +62,9 @@
               />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 State
               </label>
               <input
@@ -85,7 +89,9 @@
           </h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Large Image Key
               </label>
               <input
@@ -96,7 +102,9 @@
               />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Large Image Text
               </label>
               <input
@@ -107,7 +115,9 @@
               />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Small Image Key
               </label>
               <input
@@ -118,7 +128,9 @@
               />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Small Image Text
               </label>
               <input
@@ -147,7 +159,9 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="flex flex-col gap-1.5">
               <div class="flex items-center justify-between">
-                <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+                <label
+                  class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+                >
                   Start Time (Elapsed)
                 </label>
                 <span class="text-[11px] font-mono text-sky-400">Current Session</span>
@@ -161,7 +175,9 @@
             </div>
             <div class="flex flex-col gap-1.5">
               <div class="flex items-center justify-between">
-                <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+                <label
+                  class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+                >
                   End Time (Optional)
                 </label>
                 <span class="text-[11px] font-mono text-slate-500">Disabled</span>
@@ -187,7 +203,9 @@
           </h2>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Party ID
               </label>
               <input
@@ -197,7 +215,9 @@
               />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Current Size
               </label>
               <input
@@ -209,7 +229,9 @@
               />
             </div>
             <div class="flex flex-col gap-1.5">
-              <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium">
+              <label
+                class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-medium"
+              >
                 Max Size
               </label>
               <input
@@ -238,7 +260,9 @@
           </div>
           <div class="flex flex-col gap-3">
             <!-- Button slot 1 -->
-            <div class="flex items-center gap-3 bg-[#090d18] border border-white/10 rounded-xl p-2.5">
+            <div
+              class="flex items-center gap-3 bg-[#090d18] border border-white/10 rounded-xl p-2.5"
+            >
               <span class="font-mono text-xs text-slate-500 px-2 font-medium">#1</span>
               <input
                 v-model="store.button1.label"
@@ -254,15 +278,17 @@
               />
               <button
                 type="button"
-                @click="store.button1 = { label: '', url: '' }"
                 class="p-1.5 text-slate-500 hover:text-rose-400 transition-colors cursor-pointer"
                 title="Clear button 1"
+                @click="store.button1 = { label: '', url: '' }"
               >
                 <span class="material-symbols-outlined text-[17px]">delete</span>
               </button>
             </div>
             <!-- Button slot 2 -->
-            <div class="flex items-center gap-3 bg-[#090d18] border border-white/10 rounded-xl p-2.5">
+            <div
+              class="flex items-center gap-3 bg-[#090d18] border border-white/10 rounded-xl p-2.5"
+            >
               <span class="font-mono text-xs text-slate-500 px-2 font-medium">#2</span>
               <input
                 v-model="store.button2.label"
@@ -278,9 +304,9 @@
               />
               <button
                 type="button"
-                @click="store.button2 = { label: '', url: '' }"
                 class="p-1.5 text-slate-500 hover:text-rose-400 transition-colors cursor-pointer"
                 title="Clear button 2"
+                @click="store.button2 = { label: '', url: '' }"
               >
                 <span class="material-symbols-outlined text-[17px]">delete</span>
               </button>

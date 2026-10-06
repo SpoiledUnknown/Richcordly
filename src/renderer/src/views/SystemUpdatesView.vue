@@ -27,10 +27,14 @@
           </div>
           <div class="flex flex-col gap-1.5">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="px-2.5 py-0.5 rounded-full bg-primary text-on-primary font-semibold text-xs">
+              <span
+                class="px-2.5 py-0.5 rounded-full bg-primary text-on-primary font-semibold text-xs"
+              >
                 {{ store.updateState.pendingVersion }} Ready to Install
               </span>
-              <span class="text-xs font-mono text-slate-400">{{ store.updateState.releaseDate }}</span>
+              <span class="text-xs font-mono text-slate-400">{{
+                store.updateState.releaseDate
+              }}</span>
               <span
                 class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/5 text-secondary font-mono text-[11px]"
               >
@@ -45,8 +49,8 @@
         <div class="flex items-center gap-3 shrink-0">
           <button
             type="button"
-            @click="handleApplyUpdate"
             class="px-4 py-2 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-medium text-xs transition-all shadow-md flex items-center gap-2 cursor-pointer"
+            @click="handleApplyUpdate"
           >
             <span
               class="material-symbols-outlined text-[16px]"
@@ -83,7 +87,9 @@
               >
                 <div class="flex items-center gap-1.5 text-primary">
                   <span class="material-symbols-outlined text-[16px]">add_circle</span>
-                  <span class="font-mono text-xs font-semibold uppercase tracking-wider">Added</span>
+                  <span class="font-mono text-xs font-semibold uppercase tracking-wider"
+                    >Added</span
+                  >
                 </div>
                 <ul class="flex flex-col gap-2 text-xs text-slate-300 leading-relaxed">
                   <li class="flex items-start gap-2">
@@ -145,7 +151,9 @@
                   <span class="text-tertiary mt-0.5 font-bold">•</span>
                   <span>
                     Fixed platform pipe path resolution on Linux Flatpak runtimes (
-                    <code class="font-mono text-[11px] text-primary px-1.5 py-0.5 rounded bg-surface-container">
+                    <code
+                      class="font-mono text-[11px] text-primary px-1.5 py-0.5 rounded bg-surface-container"
+                    >
                       /run/user/1000/discord-ipc-0
                     </code>
                     ).
@@ -168,23 +176,25 @@
             <div class="w-full h-1.5 rounded-full bg-surface-container-high overflow-hidden">
               <div class="h-full bg-gradient-to-r from-primary to-secondary w-full rounded-full" />
             </div>
-            <div class="font-mono text-[10px] text-slate-400 truncate bg-[#080d18] p-2 rounded-lg border border-white/5">
+            <div
+              class="font-mono text-[10px] text-slate-400 truncate bg-[#080d18] p-2 rounded-lg border border-white/5"
+            >
               8fbc923a9d4...e109
             </div>
 
             <div class="flex flex-col gap-2 pt-2 border-t border-white/5">
               <button
                 type="button"
-                @click="handleApplyUpdate"
                 class="w-full py-2 px-3 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-medium text-xs flex items-center justify-center gap-1.5 shadow-md transition-all cursor-pointer"
+                @click="handleApplyUpdate"
               >
                 <span class="material-symbols-outlined text-[16px]">bolt</span>
                 <span>Restart &amp; Apply Update</span>
               </button>
               <button
                 type="button"
-                @click="handleRemindLater"
                 class="w-full py-2 px-3 rounded-xl bg-surface-container-high hover:bg-surface-bright text-slate-200 font-medium text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                @click="handleRemindLater"
               >
                 <span class="material-symbols-outlined text-[15px] text-slate-400">schedule</span>
                 <span>{{ remindText }}</span>
@@ -198,7 +208,11 @@
                 <span class="text-[11px] text-slate-400">Download patches silently</span>
               </div>
               <label class="relative inline-flex items-center cursor-pointer shrink-0">
-                <input v-model="store.updateState.autoUpdate" class="sr-only peer" type="checkbox" />
+                <input
+                  v-model="store.updateState.autoUpdate"
+                  class="sr-only peer"
+                  type="checkbox"
+                />
                 <div
                   class="w-9 h-5 bg-surface-container-highest rounded-full peer peer-checked:bg-primary transition-all"
                 />

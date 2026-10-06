@@ -24,8 +24,8 @@
     <div class="flex items-center gap-4 text-xs titlebar-no-drag">
       <button
         type="button"
-        @click="store.activeTab = 'profiles'"
         class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 font-mono text-[11px] border border-white/5 transition-all cursor-pointer"
+        @click="store.activeTab = 'profiles'"
       >
         <span class="text-slate-500">PROFILE</span>
         <span class="text-slate-200">{{ activePresetName }}</span>
@@ -35,25 +35,25 @@
       <div class="flex items-center gap-1.5 text-slate-500 pl-2 border-l border-white/10">
         <button
           type="button"
-          @click="minimize"
           class="w-6 h-6 rounded hover:bg-white/10 hover:text-slate-200 flex items-center justify-center transition-colors cursor-pointer"
           title="Minimize"
+          @click="minimize"
         >
           <span class="material-symbols-outlined text-[14px]">remove</span>
         </button>
         <button
           type="button"
-          @click="maximize"
           class="w-6 h-6 rounded hover:bg-white/10 hover:text-slate-200 flex items-center justify-center transition-colors cursor-pointer"
           title="Maximize / Restore"
+          @click="maximize"
         >
           <span class="material-symbols-outlined text-[13px]">check_box_outline_blank</span>
         </button>
         <button
           type="button"
-          @click="close"
           class="w-6 h-6 rounded hover:bg-rose-500/20 hover:text-rose-400 flex items-center justify-center transition-colors cursor-pointer"
           title="Close"
+          @click="close"
         >
           <span class="material-symbols-outlined text-[15px]">close</span>
         </button>

@@ -143,7 +143,7 @@ export const usePresenceStore = defineStore('presence', () => {
   })
 
   // Methods
-  function selectProfile(preset: ProfilePreset) {
+  function selectProfile(preset: ProfilePreset): void {
     activeProfileId.value = preset.id
     details.value = preset.details
     state.value = preset.state
@@ -156,7 +156,7 @@ export const usePresenceStore = defineStore('presence', () => {
     if (preset.buttons[1]) button2.value = { ...preset.buttons[1] }
   }
 
-  function clearPresence() {
+  function clearPresence(): void {
     details.value = ''
     state.value = ''
     largeImageKey.value = ''

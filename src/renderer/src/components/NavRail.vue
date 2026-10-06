@@ -14,7 +14,6 @@
         <!-- Presence Editor -->
         <button
           type="button"
-          @click="store.activeTab = 'presence'"
           :class="[
             'w-10 h-10 rounded-2xl flex items-center justify-center transition-all cursor-pointer',
             store.activeTab === 'presence'
@@ -22,6 +21,7 @@
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
           ]"
           title="Presence Editor"
+          @click="store.activeTab = 'presence'"
         >
           <span class="material-symbols-outlined text-[20px]">sports_esports</span>
         </button>
@@ -29,7 +29,6 @@
         <!-- Profile Manager -->
         <button
           type="button"
-          @click="store.activeTab = 'profiles'"
           :class="[
             'w-10 h-10 rounded-2xl flex items-center justify-center transition-all cursor-pointer',
             store.activeTab === 'profiles'
@@ -37,6 +36,7 @@
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
           ]"
           title="Profile Manager"
+          @click="store.activeTab = 'profiles'"
         >
           <span class="material-symbols-outlined text-[20px]">layers</span>
         </button>
@@ -44,7 +44,6 @@
         <!-- Settings -->
         <button
           type="button"
-          @click="store.activeTab = 'settings'"
           :class="[
             'w-10 h-10 rounded-2xl flex items-center justify-center transition-all cursor-pointer',
             store.activeTab === 'settings'
@@ -52,6 +51,7 @@
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
           ]"
           title="Settings"
+          @click="store.activeTab = 'settings'"
         >
           <span class="material-symbols-outlined text-[20px]">tune</span>
         </button>
@@ -63,7 +63,6 @@
       <!-- System Updates -->
       <button
         type="button"
-        @click="store.activeTab = 'updates'"
         :class="[
           'relative w-10 h-10 rounded-2xl flex items-center justify-center transition-all cursor-pointer',
           store.activeTab === 'updates'
@@ -71,6 +70,7 @@
             : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
         ]"
         title="System Updates"
+        @click="store.activeTab = 'updates'"
       >
         <span class="material-symbols-outlined text-[20px]">cloud_download</span>
         <span
@@ -81,9 +81,9 @@
       <!-- GitHub external link -->
       <button
         type="button"
-        @click="openGitHub"
         class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all cursor-pointer"
         title="GitHub Repository"
+        @click="openGitHub"
       >
         <span class="material-symbols-outlined text-[20px]">code</span>
       </button>
@@ -91,9 +91,9 @@
       <!-- About Info -->
       <button
         type="button"
-        @click="store.activeTab = 'updates'"
         class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all cursor-pointer"
         title="About Richcord"
+        @click="store.activeTab = 'updates'"
       >
         <span class="material-symbols-outlined text-[20px]">info</span>
       </button>

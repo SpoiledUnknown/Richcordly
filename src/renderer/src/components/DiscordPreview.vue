@@ -17,7 +17,9 @@
       <!-- Pure Discord-styled presence card -->
       <div class="rounded-2xl overflow-hidden bg-[#111726] border border-white/[0.08] shadow-2xl">
         <!-- Discord Profile Banner Decorator -->
-        <div class="h-20 bg-gradient-to-r from-violet-900/50 via-indigo-900/40 to-slate-900 relative">
+        <div
+          class="h-20 bg-gradient-to-r from-violet-900/50 via-indigo-900/40 to-slate-900 relative"
+        >
           <div
             class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-[#111726] to-transparent"
           />
@@ -109,10 +111,7 @@
             </div>
 
             <!-- Two Discord-style action buttons -->
-            <div
-              v-if="store.button1.label || store.button2.label"
-              class="flex flex-col gap-2 pt-1"
-            >
+            <div v-if="store.button1.label || store.button2.label" class="flex flex-col gap-2 pt-1">
               <a
                 v-if="store.button1.label"
                 class="w-full py-1.5 px-3 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-xs font-medium text-white flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
@@ -121,7 +120,9 @@
                 rel="noreferrer"
               >
                 <span>{{ store.button1.label }}</span>
-                <span class="material-symbols-outlined text-[13px] text-slate-400">open_in_new</span>
+                <span class="material-symbols-outlined text-[13px] text-slate-400"
+                  >open_in_new</span
+                >
               </a>
               <a
                 v-if="store.button2.label"
@@ -131,7 +132,9 @@
                 rel="noreferrer"
               >
                 <span>{{ store.button2.label }}</span>
-                <span class="material-symbols-outlined text-[13px] text-slate-400">open_in_new</span>
+                <span class="material-symbols-outlined text-[13px] text-slate-400"
+                  >open_in_new</span
+                >
               </a>
             </div>
           </div>
