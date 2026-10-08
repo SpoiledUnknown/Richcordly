@@ -163,7 +163,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { usePresenceStore } from '../stores/presenceStore'
 
 const store = usePresenceStore()
@@ -180,6 +180,7 @@ const displayUsername = computed(() => {
 })
 
 const timerString = ref('')
+let intervalId: number | null = null
 
 function updateTimer(): void {
   if (store.endTime) {
@@ -199,14 +200,39 @@ function updateTimer(): void {
   }
 }
 
-let intervalId: number | null = null
+function syncTimerLoop(): void {
+  const needsTimer = Boolean(store.startTime || store.endTime)
+  if (needsTimer && !document.hidden) {
+    updateTimer()
+    if (!intervalId) {
+      intervalId = window.setInterval(updateTimer, 1000)
+    }
+  } else {
+    if (intervalId) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+    if (!needsTimer) {
+      timerString.value = ''
+    }
+  }
+}
+
+const handleVisibilityChange = (): void => {
+  syncTimerLoop()
+}
+
+watch([() => store.startTime, () => store.endTime], () => {
+  syncTimerLoop()
+})
 
 onMounted(() => {
-  updateTimer()
-  intervalId = window.setInterval(updateTimer, 1000)
+  syncTimerLoop()
+  document.addEventListener('visibilitychange', handleVisibilityChange)
 })
 
 onUnmounted(() => {
   if (intervalId) clearInterval(intervalId)
+  document.removeEventListener('visibilitychange', handleVisibilityChange)
 })
 </script>

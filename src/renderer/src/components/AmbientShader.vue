@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { usePresenceStore, hexToRgb } from '../stores/presenceStore'
 
 const store = usePresenceStore()
@@ -173,6 +173,8 @@ void main() {
   window.addEventListener('mousemove', handleMouseMove)
 
   let startTime = performance.now()
+  let isRunning = false
+
   function render(time: number): void {
     if (!gl || !canvas) return
     gl.viewport(0, 0, canvas.width, canvas.height)
@@ -201,15 +203,74 @@ void main() {
       )
     }
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-    animFrameId = requestAnimationFrame(render)
+
+    // If reduce motion is enabled or document is hidden, don't schedule continuous animation frames
+    if (!store.settings.reduceMotion && !document.hidden) {
+      animFrameId = requestAnimationFrame(render)
+      isRunning = true
+    } else {
+      animFrameId = null
+      isRunning = false
+    }
   }
 
-  animFrameId = requestAnimationFrame(render)
+  function startAnimation(): void {
+    if (!isRunning && !document.hidden && !store.settings.reduceMotion) {
+      isRunning = true
+      animFrameId = requestAnimationFrame(render)
+    } else if (store.settings.reduceMotion) {
+      // Draw single static frame
+      render(performance.now())
+    }
+  }
+
+  function stopAnimation(): void {
+    if (animFrameId) {
+      cancelAnimationFrame(animFrameId)
+      animFrameId = null
+    }
+    isRunning = false
+  }
+
+  const handleVisibilityChange = (): void => {
+    if (document.hidden) {
+      stopAnimation()
+    } else {
+      startAnimation()
+    }
+  }
+
+  document.addEventListener('visibilitychange', handleVisibilityChange)
+
+  // Start rendering
+  startAnimation()
+
+  const unwatchMotion = watch(
+    () => store.settings.reduceMotion,
+    (reduced) => {
+      if (reduced) {
+        stopAnimation()
+        render(performance.now())
+      } else {
+        startAnimation()
+      }
+    }
+  )
 
   onUnmounted(() => {
-    if (animFrameId) cancelAnimationFrame(animFrameId)
+    unwatchMotion()
+    stopAnimation()
     if (resizeObserver) resizeObserver.disconnect()
     window.removeEventListener('mousemove', handleMouseMove)
+    document.removeEventListener('visibilitychange', handleVisibilityChange)
+
+    // Thorough WebGL resource disposal to prevent GPU memory leaks
+    if (gl) {
+      if (buf) gl.deleteBuffer(buf)
+      if (vShader) gl.deleteShader(vShader)
+      if (fShader) gl.deleteShader(fShader)
+      if (prog) gl.deleteProgram(prog)
+    }
   })
 })
 </script>

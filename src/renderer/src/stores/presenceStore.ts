@@ -652,15 +652,16 @@ export const usePresenceStore = defineStore('presence', () => {
     await saveSettings()
   }
 
-  let isAutoSaving = false
+  let autoSaveTimeout: ReturnType<typeof setTimeout> | null = null
   watch(
     settings,
     () => {
-      if (isAutoSaving) return
-      isAutoSaving = true
-      saveSettings()
-      setTimeout(() => {
-        isAutoSaving = false
+      if (autoSaveTimeout) {
+        clearTimeout(autoSaveTimeout)
+      }
+      autoSaveTimeout = setTimeout(() => {
+        saveSettings()
+        autoSaveTimeout = null
       }, 300)
     },
     { deep: true }
