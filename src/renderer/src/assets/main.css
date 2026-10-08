@@ -1,6 +1,19 @@
 @import 'tailwindcss';
 @config '../../../../tailwind.config.js';
 
+:root {
+  --color-primary: #8b5cf6;
+  --color-primary-rgb: 139, 92, 246;
+  --color-accent: #38bdf8;
+  --color-accent-rgb: 56, 189, 248;
+  --color-bg-base: #070b14;
+  --color-bg-rgb: 7, 11, 20;
+  --color-surface-container-rgb: 18, 24, 41;
+  --color-surface-low-rgb: 13, 19, 34;
+  --color-surface-high-rgb: 37, 42, 55;
+  --color-surface-variant-rgb: 48, 53, 66;
+}
+
 @layer base {
   html,
   body {

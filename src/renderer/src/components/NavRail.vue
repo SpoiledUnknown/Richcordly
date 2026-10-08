@@ -1,15 +1,9 @@
 <template>
   <aside
-    class="w-16 rounded-3xl bg-[#0d121f]/80 backdrop-blur-2xl border border-white/5 shadow-2xl p-3 flex flex-col justify-between items-center shrink-0 select-none"
+    class="w-16 rounded-3xl bg-surface-container/80 backdrop-blur-2xl border border-white/5 shadow-2xl p-3 flex flex-col justify-between items-center shrink-0 select-none"
   >
     <!-- Top Navigation -->
     <div class="flex flex-col items-center gap-3 w-full">
-      <div
-        class="w-10 h-10 rounded-2xl bg-white/[0.03] border border-white/5 flex items-center justify-center text-primary mb-1 shadow-sm"
-      >
-        <span class="material-symbols-outlined text-[20px]">terminal</span>
-      </div>
-
       <nav class="flex flex-col items-center gap-2.5 w-full">
         <!-- Presence Editor -->
         <button
@@ -60,21 +54,23 @@
 
     <!-- Bottom Navigation -->
     <div class="flex flex-col items-center gap-2.5 w-full">
-      <!-- System Updates -->
+      <!-- Check for Updates -->
       <button
         type="button"
-        :class="[
-          'relative w-10 h-10 rounded-2xl flex items-center justify-center transition-all cursor-pointer',
-          store.activeTab === 'updates'
-            ? 'bg-violet-600/25 border border-violet-500/40 text-violet-300 shadow-[0_0_16px_rgba(167,139,250,0.25)]'
-            : 'text-slate-400 hover:text-slate-200 hover:bg-white/[0.05]'
-        ]"
-        title="System Updates"
-        @click="store.activeTab = 'updates'"
+        class="relative w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all cursor-pointer group"
+        title="Check for Updates"
+        :disabled="store.updateState.isChecking"
+        @click="store.checkAndPromptUpdate()"
       >
-        <span class="material-symbols-outlined text-[20px]">cloud_download</span>
         <span
-          class="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_6px_rgba(56,189,248,0.8)]"
+          class="material-symbols-outlined text-[20px] transition-transform"
+          :class="{ 'animate-spin': store.updateState.isChecking }"
+        >
+          cloud_download
+        </span>
+        <span
+          v-if="store.updateState.hasUpdate"
+          class="absolute top-2 right-2 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.9)] animate-pulse"
         />
       </button>
 
@@ -88,14 +84,18 @@
         <span class="material-symbols-outlined text-[20px]">code</span>
       </button>
 
-      <!-- About Info -->
+      <!-- Richcord CLI download (Terminal) -->
       <button
         type="button"
-        class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-slate-200 hover:bg-white/[0.05] transition-all cursor-pointer"
-        title="About Richcord"
-        @click="store.activeTab = 'updates'"
+        class="w-10 h-10 rounded-2xl flex items-center justify-center text-slate-400 hover:text-violet-300 hover:bg-white/[0.05] transition-all cursor-pointer group"
+        title="Download Richcord CLI"
+        @click="openCliDownload"
       >
-        <span class="material-symbols-outlined text-[20px]">info</span>
+        <span
+          class="material-symbols-outlined text-[20px] group-hover:scale-110 transition-transform"
+        >
+          terminal
+        </span>
       </button>
     </div>
   </aside>
@@ -106,11 +106,21 @@ import { usePresenceStore } from '../stores/presenceStore'
 
 const store = usePresenceStore()
 
-function openGitHub(): void {
+function openCliDownload(): void {
+  const url = 'https://github.com/SpoiledUnknown/Richcord/releases'
   if (window.api?.openExternal) {
-    window.api.openExternal('https://github.com/richcord/client')
+    window.api.openExternal(url)
   } else {
-    window.open('https://github.com/richcord/client', '_blank')
+    window.open(url, '_blank')
+  }
+}
+
+function openGitHub(): void {
+  const url = 'https://github.com/SpoiledUnknown/Richcordly-UI'
+  if (window.api?.openExternal) {
+    window.api.openExternal(url)
+  } else {
+    window.open(url, '_blank')
   }
 }
 </script>

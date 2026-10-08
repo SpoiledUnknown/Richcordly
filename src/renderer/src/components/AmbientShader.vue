@@ -2,21 +2,31 @@
   <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
     <canvas ref="canvasRef" class="w-full h-full block" />
     <div
-      class="absolute inset-0 bg-[#070b14]/75"
-      :style="{ backdropFilter: `blur(${store.settings.blurDensity / 4}px)` }"
+      class="absolute inset-0 transition-colors duration-500"
+      :style="{
+        backgroundColor: `rgba(${bgRgb.r}, ${bgRgb.g}, ${bgRgb.b}, 0.75)`,
+        backdropFilter: `blur(${store.settings.blurDensity / 4}px)`
+      }"
     />
     <div
-      class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-950/20 via-[#070b14]/50 to-[#070b14]"
+      class="absolute inset-0 transition-all duration-500"
+      :style="{
+        background: `radial-gradient(ellipse at top, rgba(${primaryRgb.r}, ${primaryRgb.g}, ${primaryRgb.b}, 0.22) 0%, rgba(${bgRgb.r}, ${bgRgb.g}, ${bgRgb.b}, 0.55) 50%, rgba(${bgRgb.r}, ${bgRgb.g}, ${bgRgb.b}, 0.95) 100%)`
+      }"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
-import { usePresenceStore } from '../stores/presenceStore'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { usePresenceStore, hexToRgb } from '../stores/presenceStore'
 
 const store = usePresenceStore()
 const canvasRef = ref<HTMLCanvasElement | null>(null)
+
+const bgRgb = computed(() => hexToRgb(store.settings.customTheme?.backgroundColor || '#070b14'))
+const primaryRgb = computed(() => hexToRgb(store.settings.customTheme?.primaryColor || '#8b5cf6'))
+const accentRgb = computed(() => hexToRgb(store.settings.customTheme?.accentColor || '#38bdf8'))
 
 let animFrameId: number | null = null
 let resizeObserver: ResizeObserver | null = null
@@ -55,6 +65,9 @@ uniform float u_time;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_intensity;
+uniform vec3 u_bgColor;
+uniform vec3 u_primaryColor;
+uniform vec3 u_accentColor;
 varying vec2 v_texCoord;
 
 vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
@@ -95,14 +108,14 @@ void main() {
     float n1 = snoise(p1) * 0.5 + 0.5;
     float n2 = snoise(p2 + n1 * 0.8) * 0.5 + 0.5;
     
-    vec3 base = vec3(0.035, 0.045, 0.075);
-    vec3 midNavy = vec3(0.065, 0.09, 0.16);
-    vec3 deepPurple = vec3(0.12, 0.07, 0.22);
-    vec3 iceGlow = vec3(0.10, 0.20, 0.32);
+    vec3 base = u_bgColor;
+    vec3 midNavy = mix(u_bgColor, u_accentColor, 0.25);
+    vec3 deepPurple = mix(u_bgColor, u_primaryColor, 0.6);
+    vec3 iceGlow = u_accentColor;
     
     vec3 color = mix(base, midNavy, uv.y * 0.7);
     color = mix(color, deepPurple, n1 * 0.45);
-    color = mix(color, iceGlow, pow(n2, 2.5) * 0.25);
+    color = mix(color, iceGlow, pow(n2, 2.5) * 0.35);
     
     float dist = distance(uv, vec2(0.5, 0.5));
     color *= smoothstep(1.3, 0.2, dist);
@@ -142,6 +155,9 @@ void main() {
   const uRes = gl.getUniformLocation(prog, 'u_resolution')
   const uMouse = gl.getUniformLocation(prog, 'u_mouse')
   const uIntensity = gl.getUniformLocation(prog, 'u_intensity')
+  const uBgColor = gl.getUniformLocation(prog, 'u_bgColor')
+  const uPrimaryColor = gl.getUniformLocation(prog, 'u_primaryColor')
+  const uAccentColor = gl.getUniformLocation(prog, 'u_accentColor')
 
   const mouse = { x: canvas.width / 2, y: canvas.height / 2 }
   const handleMouseMove = (event: MouseEvent): void => {
@@ -165,6 +181,25 @@ void main() {
     if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height)
     if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y)
     if (uIntensity) gl.uniform1f(uIntensity, (store.settings.shaderIntensity / 100) * 0.9)
+    if (uBgColor) {
+      gl.uniform3f(uBgColor, bgRgb.value.r / 255, bgRgb.value.g / 255, bgRgb.value.b / 255)
+    }
+    if (uPrimaryColor) {
+      gl.uniform3f(
+        uPrimaryColor,
+        primaryRgb.value.r / 255,
+        primaryRgb.value.g / 255,
+        primaryRgb.value.b / 255
+      )
+    }
+    if (uAccentColor) {
+      gl.uniform3f(
+        uAccentColor,
+        accentRgb.value.r / 255,
+        accentRgb.value.g / 255,
+        accentRgb.value.b / 255
+      )
+    }
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
     animFrameId = requestAnimationFrame(render)
   }

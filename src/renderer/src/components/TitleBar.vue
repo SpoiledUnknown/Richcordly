@@ -1,6 +1,6 @@
 <template>
   <header
-    class="flex items-center justify-between px-5 py-2.5 rounded-2xl bg-[#0d121f]/75 backdrop-blur-xl border border-white/5 shadow-lg shrink-0 titlebar-drag"
+    class="flex items-center justify-between px-5 py-2.5 rounded-2xl bg-surface-container/75 backdrop-blur-xl border border-white/5 shadow-lg shrink-0 titlebar-drag"
   >
     <!-- Left Logo & Status -->
     <div class="flex items-center gap-3">
@@ -11,12 +11,29 @@
       </div>
       <span class="font-mono text-xs font-semibold tracking-wider text-slate-300">RICHCORD</span>
       <span class="text-slate-600 text-xs">•</span>
-      <div class="flex items-center gap-1.5 text-xs font-mono text-emerald-400">
+      <div
+        class="flex items-center gap-1.5 text-xs font-mono transition-colors"
+        :class="store.isConnected ? 'text-emerald-400' : 'text-slate-500'"
+      >
         <span
-          class="w-1.5 h-1.5 rounded-full bg-emerald-400"
-          :class="{ 'animate-pulse': store.isConnected }"
+          class="w-1.5 h-1.5 rounded-full"
+          :class="
+            store.isConnected
+              ? 'bg-emerald-400 animate-pulse'
+              : store.isConnecting
+                ? 'bg-amber-400 animate-ping'
+                : 'bg-slate-500'
+          "
         />
-        <span>{{ store.isConnected ? 'Discord Connected' : 'Disconnected' }}</span>
+        <span>
+          {{
+            store.isConnected
+              ? 'Discord Connected'
+              : store.isConnecting
+                ? 'Connecting...'
+                : 'Disconnected'
+          }}
+        </span>
       </div>
     </div>
 
@@ -24,11 +41,15 @@
     <div class="flex items-center gap-4 text-xs titlebar-no-drag">
       <button
         type="button"
-        class="flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-slate-400 font-mono text-[11px] border border-white/5 transition-all cursor-pointer"
+        class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-slate-200 font-mono text-[11px] border border-white/5 transition-all cursor-pointer group"
+        title="Active Profile"
         @click="store.activeTab = 'profiles'"
       >
-        <span class="text-slate-500">PROFILE</span>
-        <span class="text-slate-200">{{ activePresetName }}</span>
+        <span
+          class="material-symbols-outlined text-[13px] text-violet-400 group-hover:scale-110 transition-transform"
+          >layers</span
+        >
+        <span>{{ activePresetName }}</span>
       </button>
 
       <!-- Window controls -->

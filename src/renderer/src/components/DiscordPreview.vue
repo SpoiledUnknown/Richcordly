@@ -1,16 +1,24 @@
 <template>
   <aside
-    class="w-[350px] rounded-3xl bg-[#0d121f]/80 backdrop-blur-2xl border border-white/5 shadow-2xl p-6 flex flex-col justify-between shrink-0 select-none"
+    class="w-[350px] rounded-3xl bg-surface-container/80 backdrop-blur-2xl border border-white/5 shadow-2xl p-6 flex flex-col justify-between shrink-0 select-none"
   >
     <div class="flex flex-col gap-5">
       <!-- Preview Header -->
       <div class="flex items-center justify-between">
         <h2 class="text-sm font-semibold tracking-wide text-white">Preview</h2>
         <div
-          class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] font-mono"
+          class="flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[11px] font-mono transition-all"
+          :class="
+            store.isConnected
+              ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20'
+              : 'bg-slate-500/10 text-slate-400 border-slate-500/20'
+          "
         >
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-          <span>Live Sync</span>
+          <span
+            class="w-1.5 h-1.5 rounded-full"
+            :class="store.isConnected ? 'bg-emerald-400 animate-pulse' : 'bg-slate-400'"
+          />
+          <span>{{ store.isConnected ? 'Live Sync' : 'Standby' }}</span>
         </div>
       </div>
 
@@ -34,29 +42,28 @@
                 <div
                   class="w-full h-full rounded-full overflow-hidden bg-slate-800 flex items-center justify-center"
                 >
-                  <img
-                    alt="avatar"
-                    class="w-full h-full object-cover"
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80"
-                  />
+                  <img alt="avatar" class="w-full h-full object-cover" :src="userAvatarUrl" />
                 </div>
               </div>
               <!-- Status dot -->
               <span
-                class="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-[#23a55a] border-[3px] border-[#111726]"
+                class="absolute bottom-1 right-1 w-4 h-4 rounded-full border-[3px] border-[#111726] transition-colors"
+                :class="store.isConnected ? 'bg-[#23a55a]' : 'bg-slate-500'"
               />
             </div>
             <span
               class="px-2 py-0.5 rounded-full bg-white/[0.05] border border-white/5 text-[10px] font-mono text-slate-400"
             >
-              alexander.dev
+              {{ displayUsername }}
             </span>
           </div>
 
           <!-- User name -->
           <div>
-            <div class="text-white font-semibold text-sm tracking-tight">alexander.dev</div>
-            <div class="text-xs text-slate-400 mt-0.5">coding in the dark 🌙</div>
+            <div class="text-white font-semibold text-sm tracking-tight">{{ displayUsername }}</div>
+            <div class="text-xs text-slate-400 mt-0.5">
+              {{ store.isConnected ? 'Active via Richcord' : 'Discord Disconnected' }}
+            </div>
           </div>
 
           <!-- Activity Card Container -->
@@ -103,9 +110,12 @@
                 <span class="text-[11px] text-slate-400 truncate">
                   {{ store.state || 'refactoring ipc sockets' }}
                 </span>
-                <div class="text-[10px] font-mono text-sky-400 flex items-center gap-1 mt-0.5">
+                <div
+                  v-if="timerString"
+                  class="text-[10px] font-mono text-sky-400 flex items-center gap-1 mt-0.5"
+                >
                   <span class="material-symbols-outlined text-[11px]">schedule</span>
-                  <span>{{ elapsedString }} elapsed</span>
+                  <span>{{ timerString }}</span>
                 </div>
               </div>
             </div>
@@ -153,23 +163,47 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { usePresenceStore } from '../stores/presenceStore'
 
 const store = usePresenceStore()
 
-const secondsCount = ref(42 * 60 + 15) // starting offset
-const elapsedString = ref('42:15')
+const userAvatarUrl = computed(() => {
+  if (store.currentUser?.avatar && store.currentUser?.id) {
+    return `https://cdn.discordapp.com/avatars/${store.currentUser.id}/${store.currentUser.avatar}.png`
+  }
+  return 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+})
+
+const displayUsername = computed(() => {
+  return store.currentUser?.username || 'alexander.dev'
+})
+
+const timerString = ref('')
+
+function updateTimer(): void {
+  if (store.endTime) {
+    const endMs = store.endTime < 10000000000 ? store.endTime * 1000 : store.endTime
+    const diffSec = Math.max(0, Math.floor((endMs - Date.now()) / 1000))
+    const mins = Math.floor(diffSec / 60)
+    const secs = diffSec % 60
+    timerString.value = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')} remaining`
+  } else if (store.startTime) {
+    const startMs = store.startTime < 10000000000 ? store.startTime * 1000 : store.startTime
+    const diffSec = Math.max(0, Math.floor((Date.now() - startMs) / 1000))
+    const mins = Math.floor(diffSec / 60)
+    const secs = diffSec % 60
+    timerString.value = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')} elapsed`
+  } else {
+    timerString.value = ''
+  }
+}
 
 let intervalId: number | null = null
 
 onMounted(() => {
-  intervalId = window.setInterval(() => {
-    secondsCount.value++
-    const mins = Math.floor(secondsCount.value / 60)
-    const secs = secondsCount.value % 60
-    elapsedString.value = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
-  }, 1000)
+  updateTimer()
+  intervalId = window.setInterval(updateTimer, 1000)
 })
 
 onUnmounted(() => {

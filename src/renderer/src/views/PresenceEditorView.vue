@@ -21,25 +21,86 @@
           </button>
           <button
             type="button"
-            class="h-9 px-5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs tracking-wide shadow-[0_0_20px_rgba(147,51,234,0.35)] transition-all flex items-center gap-2 cursor-pointer"
+            class="h-9 px-5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-medium text-xs tracking-wide shadow-[0_0_20px_rgba(147,51,234,0.35)] transition-all flex items-center gap-2 cursor-pointer disabled:opacity-60"
+            :disabled="store.isUpdating"
             @click="handleUpdatePresence"
           >
             <span
               class="material-symbols-outlined text-[16px]"
-              :class="{ 'animate-spin': isUpdating }"
+              :class="{ 'animate-spin': store.isUpdating }"
             >
-              {{ isUpdating ? 'refresh' : 'bolt' }}
+              {{ store.isUpdating ? 'refresh' : isSuccessFeedback ? 'check' : 'bolt' }}
             </span>
-            <span>{{ isUpdating ? 'Synced' : 'Update Presence' }}</span>
+            <span>
+              {{
+                store.isUpdating ? 'Syncing...' : isSuccessFeedback ? 'Synced' : 'Update Presence'
+              }}
+            </span>
           </button>
         </div>
       </div>
 
+      <!-- Error notification if present -->
+      <div
+        v-if="store.errorMessage"
+        class="mt-3 px-4 py-2.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center justify-between"
+      >
+        <div class="flex items-center gap-2">
+          <span class="material-symbols-outlined text-[16px]">error</span>
+          <span>{{ store.errorMessage }}</span>
+        </div>
+        <button
+          type="button"
+          class="text-rose-400 hover:text-rose-200 cursor-pointer"
+          @click="store.errorMessage = null"
+        >
+          <span class="material-symbols-outlined text-[14px]">close</span>
+        </button>
+      </div>
+
       <!-- Form Sections -->
       <div class="mt-5 flex flex-col gap-4">
+        <!-- Application Credentials & Sync Bar -->
+        <section
+          class="bg-surface-container/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-4 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-xl bg-violet-600/20 text-violet-400 border border-violet-500/20 flex items-center justify-center shrink-0"
+            >
+              <span class="material-symbols-outlined text-[18px]">key</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xs font-semibold text-white"
+                >Discord Application ID (Client ID)</span
+              >
+              <span class="text-[11px] text-slate-400"
+                >Must be a valid Discord App Snowflake ID</span
+              >
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <input
+              v-model="store.applicationId"
+              class="bg-[#090d18] border border-white/10 rounded-xl px-3 py-1.5 text-xs text-slate-100 font-mono placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 w-48 sm:w-56"
+              placeholder="e.g. 886576833838088243"
+              type="text"
+            />
+            <button
+              type="button"
+              class="h-8 px-3 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-slate-300 border border-white/5 text-xs font-mono transition-all flex items-center gap-1.5 cursor-pointer"
+              title="Load configured credentials from Richcord CLI"
+              @click="handleImportCli"
+            >
+              <span class="material-symbols-outlined text-[14px]">download</span>
+              <span>Sync CLI</span>
+            </button>
+          </div>
+        </section>
+
         <!-- Section 1: Basic Activity -->
         <section
-          class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
+          class="bg-surface-container/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
         >
           <h2
             class="text-xs font-mono tracking-wider uppercase text-violet-300 font-semibold mb-3 flex items-center gap-2"
@@ -79,7 +140,7 @@
 
         <!-- Section 2: Keys & Visual -->
         <section
-          class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
+          class="bg-surface-container/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
         >
           <h2
             class="text-xs font-mono tracking-wider uppercase text-sky-300 font-semibold mb-3 flex items-center gap-2"
@@ -145,7 +206,7 @@
 
         <!-- Section 3: Timestamps -->
         <section
-          class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
+          class="bg-surface-container/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
         >
           <div class="flex items-center justify-between mb-3">
             <h2
@@ -157,6 +218,7 @@
             <span class="text-[11px] font-mono text-slate-500">Epoch Sync Active</span>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Start Time -->
             <div class="flex flex-col gap-1.5">
               <div class="flex items-center justify-between">
                 <label
@@ -164,15 +226,38 @@
                 >
                   Start Time (Elapsed)
                 </label>
-                <span class="text-[11px] font-mono text-sky-400">Current Session</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[11px] font-mono text-sky-400">
+                    {{ startTimePreview }}
+                  </span>
+                  <button
+                    type="button"
+                    class="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 hover:bg-violet-500/30 transition-colors cursor-pointer"
+                    title="Set to Current Time"
+                    @click="setStartToNow"
+                  >
+                    Now
+                  </button>
+                  <button
+                    v-if="store.startTime"
+                    type="button"
+                    class="text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 hover:bg-rose-500/30 transition-colors cursor-pointer"
+                    title="Clear Start Time"
+                    @click="clearStartTime"
+                  >
+                    Clear
+                  </button>
+                </div>
               </div>
               <input
-                class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 font-mono text-xs transition-all"
+                v-model="startTimeInput"
+                class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 font-mono text-xs transition-all"
+                placeholder="Unix timestamp (e.g. 1786549337255) or click Now"
                 type="text"
-                value="Auto-synchronized from launch"
-                readonly
               />
             </div>
+
+            <!-- End Time -->
             <div class="flex flex-col gap-1.5">
               <div class="flex items-center justify-between">
                 <label
@@ -180,11 +265,41 @@
                 >
                   End Time (Optional)
                 </label>
-                <span class="text-[11px] font-mono text-slate-500">Disabled</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-[11px] font-mono text-purple-400">
+                    {{ endTimePreview }}
+                  </span>
+                  <button
+                    type="button"
+                    class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 transition-colors cursor-pointer"
+                    title="Add 30 Minutes from now"
+                    @click="setEndOffset(30)"
+                  >
+                    +30m
+                  </button>
+                  <button
+                    type="button"
+                    class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 hover:bg-purple-500/30 transition-colors cursor-pointer"
+                    title="Add 1 Hour from now"
+                    @click="setEndOffset(60)"
+                  >
+                    +1h
+                  </button>
+                  <button
+                    v-if="store.endTime"
+                    type="button"
+                    class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 hover:bg-rose-500/30 transition-colors cursor-pointer"
+                    title="Clear End Time"
+                    @click="clearEndTime"
+                  >
+                    Clear
+                  </button>
+                </div>
               </div>
               <input
-                class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-500 placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 font-mono text-xs transition-all"
-                placeholder="Unix timestamp or empty"
+                v-model="endTimeInput"
+                class="bg-[#090d18] border border-white/10 rounded-xl px-3.5 py-2.5 text-sm text-slate-100 placeholder:text-slate-600 focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 font-mono text-xs transition-all"
+                placeholder="Unix timestamp or use +30m / +1h buttons"
                 type="text"
               />
             </div>
@@ -193,7 +308,7 @@
 
         <!-- Section 4: Party Settings -->
         <section
-          class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
+          class="bg-surface-container/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
         >
           <h2
             class="text-xs font-mono tracking-wider uppercase text-indigo-300 font-semibold mb-3 flex items-center gap-2"
@@ -247,7 +362,7 @@
 
         <!-- Section 5: Action Buttons -->
         <section
-          class="bg-[#121829]/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
+          class="bg-surface-container/60 backdrop-blur-md border border-white/[0.06] rounded-2xl p-5 shadow-lg"
         >
           <div class="flex items-center justify-between mb-3">
             <h2
@@ -319,16 +434,87 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { usePresenceStore } from '../stores/presenceStore'
 
 const store = usePresenceStore()
-const isUpdating = ref(false)
+const isSuccessFeedback = ref(false)
 
-function handleUpdatePresence(): void {
-  isUpdating.value = true
-  setTimeout(() => {
-    isUpdating.value = false
-  }, 1200)
+const startTimeInput = computed({
+  get: () => (store.startTime ? String(store.startTime) : ''),
+  set: (val: string) => {
+    const trimmed = val.trim()
+    if (!trimmed) {
+      store.startTime = null
+    } else {
+      const num = Number(trimmed)
+      store.startTime = isNaN(num) ? null : num
+    }
+  }
+})
+
+const endTimeInput = computed({
+  get: () => (store.endTime ? String(store.endTime) : ''),
+  set: (val: string) => {
+    const trimmed = val.trim()
+    if (!trimmed) {
+      store.endTime = null
+    } else {
+      const num = Number(trimmed)
+      store.endTime = isNaN(num) ? null : num
+    }
+  }
+})
+
+function setStartToNow(): void {
+  store.startTime = Date.now()
+}
+
+function clearStartTime(): void {
+  store.startTime = null
+}
+
+function setEndOffset(minutes: number): void {
+  store.endTime = Date.now() + minutes * 60 * 1000
+}
+
+function clearEndTime(): void {
+  store.endTime = null
+}
+
+const startTimePreview = computed(() => {
+  if (!store.startTime) return 'None'
+  const ms = store.startTime < 10000000000 ? store.startTime * 1000 : store.startTime
+  const date = new Date(ms)
+  if (isNaN(date.getTime())) return 'Invalid'
+  return date.toLocaleTimeString()
+})
+
+const endTimePreview = computed(() => {
+  if (!store.endTime) return 'None'
+  const ms = store.endTime < 10000000000 ? store.endTime * 1000 : store.endTime
+  const date = new Date(ms)
+  if (isNaN(date.getTime())) return 'Invalid'
+  return date.toLocaleTimeString()
+})
+
+async function handleUpdatePresence(): Promise<void> {
+  const success = await store.updatePresence()
+  if (success) {
+    isSuccessFeedback.value = true
+    setTimeout(() => {
+      isSuccessFeedback.value = false
+    }, 2000)
+  }
+}
+
+async function handleImportCli(): Promise<void> {
+  const success = await store.importFromCli()
+  if (success) {
+    isSuccessFeedback.value = true
+    setTimeout(() => {
+      isSuccessFeedback.value = false
+    }, 1500)
+  }
 }
 </script>
