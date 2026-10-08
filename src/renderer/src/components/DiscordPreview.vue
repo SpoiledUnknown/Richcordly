@@ -62,7 +62,7 @@
           <div>
             <div class="text-white font-semibold text-sm tracking-tight">{{ displayUsername }}</div>
             <div class="text-xs text-slate-400 mt-0.5">
-              {{ store.isConnected ? 'Active via Richcord' : 'Discord Disconnected' }}
+              {{ store.isConnected ? 'Active via Richcordly' : 'Discord Disconnected' }}
             </div>
           </div>
 
@@ -103,9 +103,9 @@
 
               <!-- Text lines -->
               <div class="flex flex-col min-w-0 justify-center">
-                <span class="text-xs font-semibold text-white truncate">Richcord</span>
+                <span class="text-xs font-semibold text-white truncate">Richcordly</span>
                 <span class="text-xs text-slate-300 truncate mt-0.5">
-                  {{ store.details || 'Building Richcord Desktop Client' }}
+                  {{ store.details || 'Building Richcordly Desktop Client' }}
                 </span>
                 <span class="text-[11px] text-slate-400 truncate">
                   {{ store.state || 'refactoring ipc sockets' }}

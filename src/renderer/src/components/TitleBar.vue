@@ -9,7 +9,7 @@
       >
         <span class="material-symbols-outlined text-[15px] text-white">sports_esports</span>
       </div>
-      <span class="font-mono text-xs font-semibold tracking-wider text-slate-300">RICHCORD</span>
+      <span class="font-mono text-xs font-semibold tracking-wider text-slate-300">RICHCORDLY</span>
       <span class="text-slate-600 text-xs">•</span>
       <div
         class="flex items-center gap-1.5 text-xs font-mono transition-colors"

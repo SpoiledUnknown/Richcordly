@@ -1,6 +1,6 @@
-# richcordly-ui
+# Richcordly
 
-An Electron application with Vue and TypeScript
+A modern Discord Rich Presence desktop client built with Electron, Vue 3, and TypeScript.
 
 ## Recommended IDE Setup
 

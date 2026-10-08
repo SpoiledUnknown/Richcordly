@@ -116,7 +116,7 @@ function openCliDownload(): void {
 }
 
 function openGitHub(): void {
-  const url = 'https://github.com/SpoiledUnknown/Richcordly-UI'
+  const url = 'https://github.com/SpoiledUnknown/Richcordly'
   if (window.api?.openExternal) {
     window.api.openExternal(url)
   } else {

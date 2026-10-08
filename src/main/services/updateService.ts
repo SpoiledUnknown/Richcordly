@@ -83,7 +83,7 @@ class AppUpdateService {
   public async checkForUpdates(): Promise<UpdateCheckResultPayload> {
     const currentVersion = this.getAppVersion()
     let latestVersion = currentVersion
-    let releaseUrl = 'https://github.com/SpoiledUnknown/Richcordly-UI/releases'
+    let releaseUrl = 'https://github.com/SpoiledUnknown/Richcordly/releases'
     let releaseName = `Release v${currentVersion}`
     let releaseNotes = ''
     let publishedAt = ''
@@ -91,9 +91,9 @@ class AppUpdateService {
     const history: ReleaseItem[] = []
     let githubApiAllowed = false
 
-    // 1. Use richcord's builtin checkUpdate method targeting Richcordly-UI
+    // 1. Use richcord's builtin checkUpdate method targeting Richcordly
     try {
-      const richcordResult = await this.richcordUpdater.checkUpdate('Richcordly-UI')
+      const richcordResult = await this.richcordUpdater.checkUpdate('Richcordly')
       if (richcordResult && richcordResult.latestVersion) {
         const cleaned = richcordResult.latestVersion.trim().replace(/^v/i, '')
         if (cleaned) {
@@ -107,7 +107,7 @@ class AppUpdateService {
       console.warn('[AppUpdateService] richcord checkUpdate error:', e)
     }
 
-    // 2. Fetch releases from GitHub API for Richcordly-UI
+    // 2. Fetch releases from GitHub API for Richcordly
     try {
       const releasesData = await this.fetchGithubReleases()
       if (Array.isArray(releasesData)) {
@@ -196,11 +196,11 @@ class AppUpdateService {
   private fetchGithubReleases(): Promise<GithubReleaseRaw[]> {
     return new Promise((resolve, reject) => {
       const req = https.get(
-        'https://api.github.com/repos/SpoiledUnknown/Richcordly-UI/releases',
+        'https://api.github.com/repos/SpoiledUnknown/Richcordly/releases',
         {
           timeout: 6000,
           headers: {
-            'User-Agent': 'Richcordly-UI',
+            'User-Agent': 'Richcordly',
             Accept: 'application/vnd.github+json'
           }
         },
@@ -233,7 +233,7 @@ class AppUpdateService {
   public async applyUpdate(targetUrl?: string): Promise<{ success: boolean; message?: string }> {
     try {
       if (!targetUrl) {
-        targetUrl = 'https://github.com/SpoiledUnknown/Richcordly-UI/releases/latest'
+        targetUrl = 'https://github.com/SpoiledUnknown/Richcordly/releases/latest'
       }
 
       // If it's a direct .exe or asset download link on Windows
@@ -261,7 +261,7 @@ class AppUpdateService {
       const file = fs.createWriteStream(dest)
       const request = (targetUrl: string): void => {
         https
-          .get(targetUrl, { headers: { 'User-Agent': 'Richcordly-UI' } }, (res) => {
+          .get(targetUrl, { headers: { 'User-Agent': 'Richcordly' } }, (res) => {
             if (res.statusCode === 302 || res.statusCode === 301) {
               const redirectUrl = res.headers.location
               if (redirectUrl) {

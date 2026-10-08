@@ -51,7 +51,7 @@ function createTray(): void {
         }
       }
     ])
-    tray.setToolTip('Richcordly UI')
+    tray.setToolTip('Richcordly')
     tray.setContextMenu(contextMenu)
     tray.on('click', () => {
       if (!mainWindow || mainWindow.isDestroyed()) {
@@ -95,7 +95,7 @@ function createWindow(): void {
       process.argv.includes('--hidden') || app.getLoginItemSettings().wasOpenedAtLogin
     if (settings.startMinimized && isAutoBoot) {
       if (tray) {
-        tray.setToolTip('Richcordly UI (Running minimized)')
+        tray.setToolTip('Richcordly (Running minimized)')
       }
     } else {
       mainWindow?.show()
@@ -134,7 +134,7 @@ function createWindow(): void {
 
 app.whenReady().then(() => {
   app.setName('Richcordly')
-  electronApp.setAppUserModelId('com.electron.richcord')
+  electronApp.setAppUserModelId('com.electron.richcordly')
 
   app.on('second-instance', () => {
     showMainWindow()

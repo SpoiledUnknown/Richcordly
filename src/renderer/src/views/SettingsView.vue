@@ -45,7 +45,7 @@
               <div class="flex flex-col pr-4">
                 <div class="flex items-center gap-2">
                   <span class="text-xs font-semibold text-on-surface"
-                    >Launch Richcord on system startup</span
+                    >Launch Richcordly on system startup</span
                   >
                   <span
                     class="px-1.5 py-0.5 rounded text-[9px] font-mono uppercase bg-white/10 text-on-surface-variant border border-white/10"
@@ -551,7 +551,7 @@
               <div>
                 <h2 class="text-sm font-semibold text-on-surface">Client Updates &amp; Engine</h2>
                 <p class="text-xs text-on-surface-variant">
-                  Automated release telemetry via Richcord engine
+                  Automated release telemetry via Richcordly engine
                 </p>
               </div>
             </div>

@@ -151,10 +151,10 @@ export const usePresenceStore = defineStore('presence', () => {
   const activeProfileId = ref('PR-0104')
 
   // Form payload (active presence)
-  const details = ref('Building Richcord Desktop Client')
+  const details = ref('Building Richcordly Desktop Client')
   const state = ref('refactoring ipc sockets')
   const largeImageKey = ref('richcord_crystallite')
-  const largeImageText = ref('Richcord Dev Studio')
+  const largeImageText = ref('Richcordly Dev Studio')
   const smallImageKey = ref('vscode_badge')
   const smallImageText = ref('Editing presence.ts')
   const startTime = ref<number | null>(Date.now())
@@ -176,10 +176,10 @@ export const usePresenceStore = defineStore('presence', () => {
       processName: 'Code.exe',
       triggerMode: 'On Process Foreground',
       applicationId: '886576833838088243',
-      details: 'Building Richcord Desktop Client',
+      details: 'Building Richcordly Desktop Client',
       state: 'refactoring ipc sockets',
       largeImageKey: 'richcord_crystallite',
-      largeImageText: 'Richcord Dev Studio',
+      largeImageText: 'Richcordly Dev Studio',
       smallImageKey: 'vscode_badge',
       smallImageText: 'Editing presence.ts',
       buttons: [
@@ -675,7 +675,7 @@ export const usePresenceStore = defineStore('presence', () => {
     currentVersion: '1.0.0',
     latestVersion: '1.0.0',
     releaseName: '',
-    releaseUrl: 'https://github.com/SpoiledUnknown/Richcordly-UI/releases',
+    releaseUrl: 'https://github.com/SpoiledUnknown/Richcordly/releases',
     releaseNotes: '',
     publishedAt: '',
     channel: 'Stable',
@@ -706,7 +706,7 @@ export const usePresenceStore = defineStore('presence', () => {
         updateState.value.releaseName =
           res.releaseName || `Release v${updateState.value.latestVersion}`
         updateState.value.releaseUrl =
-          res.releaseUrl || 'https://github.com/SpoiledUnknown/Richcordly-UI/releases'
+          res.releaseUrl || 'https://github.com/SpoiledUnknown/Richcordly/releases'
         updateState.value.releaseNotes = res.releaseNotes
         updateState.value.publishedAt = res.publishedAt
         updateState.value.channel = res.channel || 'Stable'

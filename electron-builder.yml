@@ -1,5 +1,5 @@
-appId: com.electron.app
-productName: richcordly-ui
+appId: com.electron.richcordly
+productName: Richcordly
 directories:
   buildResources: public
   output: dist
@@ -9,7 +9,7 @@ files:
   - '!**/*.md'
 asar: true
 win:
-  executableName: richcordly-ui
+  executableName: richcordly
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}
