@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Richcordly — Sleek Discord Rich Presence Client</title>
+  <meta name="description" content="A modern, resource-efficient Discord Rich Presence desktop client with presets, custom themes, and automatic process detection.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="public/icon.png">
+  <link rel="shortcut icon" href="public/icon.ico">
+
+  <!-- Fonts: Geist / JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Ambient Animated Background Glows -->
+  <div class="ambient-glows" aria-hidden="true">
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+    <div class="glow glow-3"></div>
+  </div>
+
+  <div class="site-wrapper">
+    <!-- Navigation Bar -->
+    <header class="navbar glass">
+      <div class="nav-brand">
+        <img src="public/icon.png" alt="Richcordly Icon" class="nav-logo" width="32" height="32">
+        <span class="nav-title">Richcordly</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#download" class="nav-link">Download</a>
+        <a href="https://github.com/SpoiledUnknown/Richcordly" target="_blank" rel="noopener noreferrer" class="nav-btn-gh">
+          <svg class="gh-icon" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="hero-section">
+      <div class="version-badge-container">
+        <a id="releaseBadge" href="https://github.com/SpoiledUnknown/Richcordly/releases" target="_blank" rel="noopener noreferrer" class="version-badge glass">
+          <span class="badge-pulse"></span>
+          <span id="badgeVersionText">Latest Release v1.0.0</span>
+          <span class="badge-arrow">→</span>
+        </a>
+      </div>
+
+      <h1 class="hero-title">
+        Discord Rich Presence, <br>
+        <span class="gradient-text">Redefined.</span>
+      </h1>
+
+      <p class="hero-description">
+        A lightweight, nocturnal violet Discord presence studio for power users.
+        Custom activity presets, live preview, WebGL ambient backgrounds, and zero bloat.
+      </p>
+
+      <!-- Download Card Component -->
+      <section id="download" class="download-card glass">
+        <!-- OS Selection Tabs -->
+        <div class="os-tabs" role="tablist" aria-label="Select Operating System">
+          <button id="tabWindows" class="os-tab active" role="tab" aria-selected="true" data-os="windows">
+            <svg class="os-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+            </svg>
+            <span>Windows</span>
+          </button>
+
+          <button id="tabLinux" class="os-tab" role="tab" aria-selected="false" data-os="linux">
+            <svg class="os-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12.002 0c-3.15 0-5.702 2.553-5.702 5.703 0 .737.14 1.442.396 2.088-.839.261-1.613.673-2.28 1.21-.497.4-.852.92-1.036 1.503-.311.983-.082 2.072.585 2.825.266.301.6.536.979.692-.128.536-.197 1.096-.197 1.671 0 4.582 3.255 8.308 7.255 8.308s7.255-3.726 7.255-8.308c0-.575-.069-1.135-.197-1.671.379-.156.713-.391.979-.692.667-.753.896-1.842.585-2.825-.184-.583-.539-1.103-1.036-1.503-.667-.537-1.441-.949-2.28-1.21.256-.646.396-1.351.396-2.088C17.704 2.553 15.152 0 12.002 0z"/>
+            </svg>
+            <span>Linux</span>
+          </button>
+
+          <button id="tabMac" class="os-tab disabled" role="tab" aria-selected="false" aria-disabled="true" data-os="mac" title="macOS build coming soon">
+            <svg class="os-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.89c.66-.82 1.11-1.96.99-3.1-.96.04-2.11.64-2.79 1.44-.6.69-1.12 1.84-1 2.96 1.07.08 2.15-.55 2.8-1.3z"/>
+            </svg>
+            <span>macOS</span>
+            <span class="tab-tag">Soon</span>
+          </button>
+        </div>
+
+        <!-- Dynamic Action Area -->
+        <div class="download-action-box">
+          <a id="btnPrimaryDownload" href="#" class="btn-download" target="_blank" rel="noopener noreferrer">
+            <div class="btn-icon-wrapper">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+            </div>
+            <div class="btn-text-content">
+              <span id="btnMainLabel" class="btn-main-label">Download for Windows</span>
+              <span id="btnSubLabel" class="btn-sub-label">Loading release details...</span>
+            </div>
+          </a>
+
+          <!-- Direct asset fallback or GitHub release options -->
+          <div class="download-meta">
+            <div class="meta-item">
+              <span class="meta-label">Version:</span>
+              <span id="metaVersion" class="meta-value font-mono">v1.0.0</span>
+            </div>
+            <div class="meta-sep">•</div>
+            <div class="meta-item">
+              <span class="meta-label">Target:</span>
+              <span id="metaTarget" class="meta-value">Installer (.exe)</span>
+            </div>
+            <div class="meta-sep">•</div>
+            <div class="meta-item">
+              <span class="meta-label">Size:</span>
+              <span id="metaSize" class="meta-value font-mono">~60 MB</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Release Notes Preview / Link Bar -->
+        <div class="download-footer">
+          <span class="footer-note">⚡ Free, fully open source, and telemetry-free.</span>
+          <a id="linkAllReleases" href="https://github.com/SpoiledUnknown/Richcordly/releases" target="_blank" rel="noopener noreferrer" class="link-releases">
+            All Releases &amp; Notes →
+          </a>
+        </div>
+      </section>
+
+      <!-- Highlights / Features Grid -->
+      <section id="features" class="features-grid">
+        <div class="feature-card glass">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+          </div>
+          <h3 class="feature-title">Ultra Lightweight</h3>
+          <p class="feature-desc">Engineered for minimal footprint. Pauses WebGL animations when minimized and draws near-zero idle CPU &amp; RAM.</p>
+        </div>
+
+        <div class="feature-card glass">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3 class="feature-title">Dynamic Preset Manager</h3>
+          <p class="feature-desc">Switch between coding, gaming, and lo-fi presets instantly with custom hotkeys and seamless JSON preset export/import.</p>
+        </div>
+
+        <div class="feature-card glass">
+          <div class="feature-icon-box">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-title">Process Auto-Detection</h3>
+          <p class="feature-desc">Link your Discord activity to running executables with automatic triggers on foreground focus or process startup.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-left">
+        <img src="public/icon.png" alt="Richcordly" class="footer-logo" width="20" height="20">
+        <span>Richcordly © 2026</span>
+      </div>
+      <div class="footer-right">
+        <a href="https://github.com/SpoiledUnknown/Richcordly" target="_blank" rel="noopener noreferrer">Source Code</a>
+        <span>•</span>
+        <a href="https://github.com/SpoiledUnknown/Richcordly/releases" target="_blank" rel="noopener noreferrer">Releases</a>
+        <span>•</span>
+        <a href="https://github.com/SpoiledUnknown/Richcordly/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
