@@ -5,9 +5,9 @@
     <!-- Left Logo & Status -->
     <div class="flex items-center gap-3">
       <div
-        class="w-6 h-6 rounded-lg bg-gradient-to-tr from-violet-600 to-indigo-400 flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.4)]"
+        class="w-6 h-6 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_12px_rgba(168,85,247,0.4)] shrink-0"
       >
-        <span class="material-symbols-outlined text-[15px] text-white">sports_esports</span>
+        <img :src="iconUrl" alt="Richcordly" class="w-full h-full object-cover" />
       </div>
       <span class="font-mono text-xs font-semibold tracking-wider text-slate-300">Richcordly</span>
       <span class="text-slate-600 text-xs">•</span>
@@ -86,6 +86,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { usePresenceStore } from '../stores/presenceStore'
+import iconUrl from '../assets/icon.png'
 
 const store = usePresenceStore()
 
