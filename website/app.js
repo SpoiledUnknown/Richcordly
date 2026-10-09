@@ -40,7 +40,7 @@
    * Format bytes to human readable string (e.g. 58.4 MB)
    */
   function formatBytes(bytes) {
-    if (!bytes || isNaN(bytes) || bytes <= 0) return '~60 MB';
+    if (!bytes || isNaN(bytes) || bytes <= 0) return '100 - 130 MB';
     const mb = bytes / (1024 * 1024);
     return `${mb.toFixed(1)} MB`;
   }
